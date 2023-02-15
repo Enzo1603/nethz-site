@@ -1,0 +1,35 @@
+/* :root {
+    --cgray: #2b3035;
+} */
+
+::-moz-selection {
+    /* Code for Firefox */
+    background: #4a525b;
+    color: white;
+}
+
+::selection {
+    background: #4a525b;
+    color: white;
+}
+
+body {
+    font-family: 'Roboto Serif', 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+nav {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    transition: all ease-in-out 0.5s;
+
+    
+}
+

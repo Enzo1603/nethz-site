@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<h1>Home sweet home</h1>
+
+
+<div class="row">
+
+    <!-- Technische Mechanik HS23 Card -->
+    <div class="col-md-6 col-sm-12 mt-2 mb-4">
+        <a href="{{ url_for('technische_mechanik', semester='HS23') }}">
+            <div class="card rounded-3 zoom">
+                <img src="{{ url_for('static', filename='images/technische_mechanik_6px.jpg') }}"
+                    class="card-img rounded-3" style="filter: brightness(70%);" alt="...">
+                <div class="card-img-overlay text-white text-center">
+                    <div
+                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
+                        <h2 class="card-title fs-2">Technische Mechanik 2023</h2>
+                        <p class="card-text fs-6 mb-3">Übungsbetrieb und wichtige Unterlagen</p>
+                        <a class="btn btn-light btn-lg-lg btn"
+                            href="{{ url_for('technische_mechanik', semester='HS23')}}">
+                            Zu den Unterlagen
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Physik I FS24 Card -->
+    <div class="col-md-6 col-sm-12 mt-2 mb-4">
+        <div class="card rounded-3 zoom">
+            <a href="#">
+                <img src="{{ url_for('static', filename='images/physik1_2px.jpg') }}" class="card-img rounded-3"
+                    style="filter: brightness(70%);" alt="...">
+                <div class="card-img-overlay text-white text-center">
+                    <div
+                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
+                        <h2 class="card-title fs-2">Physik I 2024</h2>
+                        <p class="card-text fs-6 mb-3">Übungsbetrieb und wichtige Unterlagen</p>
+                        <a class="btn btn-light btn-lg-lg btn" href="#">Zu den Unterlagen</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Informatik I FS24 Card -->
+    <div class="col-md-6 col-sm-12 mt-2 mb-4">
+        <div class="card rounded-3 zoom">
+            <a href="#">
+                <img src="{{ url_for('static', filename='images/informatik1_3px.jpg') }}" class="card-img rounded-3"
+                    style="filter: brightness(70%);" alt="...">
+                <div class="card-img-overlay text-white text-center">
+                    <div
+                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
+                        <h2 class="card-title fs-2">Informatik I 2024</h2>
+                        <p class="card-text fs-6 mb-3">Übungsbetrieb und wichtige Unterlagen</p>
+                        <a class="btn btn-light btn-lg-lg btn" href="#">Zu den Unterlagen</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+{% endblock content %}
