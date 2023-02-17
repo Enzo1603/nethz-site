@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 flask = "2.2.2"
+flask-caching = "2.0.2"
+python-dotenv = "*"
 
 [dev-packages]
 black = "*"

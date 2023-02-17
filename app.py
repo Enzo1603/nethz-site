@@ -1,9 +1,24 @@
+import os
 from datetime import datetime
+from dotenv import load_dotenv
 
 from flask import Flask, render_template
+from flask_caching import Cache
 from werkzeug.exceptions import HTTPException
 
+load_dotenv()
+DEBUG: bool = bool(os.getenv("DEBUG") or False)
+HOST: str | None = os.getenv("HOST") or None
+
+
+cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
+
 app = Flask(__name__)
+cache.init_app(app)
+
+
+def bypass_caching():
+    return DEBUG
 
 
 @app.context_processor
@@ -17,14 +32,16 @@ def custom_error_page(e):
 
 
 @app.route("/")
+@cache.cached(timeout=60, unless=bypass_caching)
 def home():
     return render_template("main/home.html")
 
 
 @app.route("/technische_mechanik/<string:semester>")
+@cache.memoize(60, unless=bypass_caching)
 def technische_mechanik(semester: str):
     return render_template(f"technische_mechanik/TM_{semester}.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=DEBUG, host=HOST)
