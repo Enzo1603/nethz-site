@@ -1,13 +1,13 @@
 from datetime import datetime
-from werkzeug.exceptions import HTTPException
 
 from flask import Flask, render_template
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 
 
 @app.context_processor
-def inject_now():
+def inject_utcnow():
     return {"utcnow": datetime.utcnow()}
 
 
