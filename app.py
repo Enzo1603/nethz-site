@@ -12,6 +12,7 @@ HOST: str | None = os.getenv("HOST") or None
 
 
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
+TIMEOUT: int = 60 * 60 * 24 * 365  # 365 days
 
 app = Flask(__name__)
 cache.init_app(app)
@@ -32,13 +33,13 @@ def custom_error_page(e):
 
 
 @app.route("/")
-@cache.cached(timeout=60, unless=bypass_caching)
+@cache.cached(timeout=TIMEOUT, unless=bypass_caching)
 def home():
     return render_template("main/home.html")
 
 
 @app.route("/technische_mechanik/<string:semester>")
-@cache.memoize(60, unless=bypass_caching)
+@cache.memoize(timeout=TIMEOUT, unless=bypass_caching)
 def technische_mechanik(semester: str):
     return render_template(f"technische_mechanik/TM_{semester}.html")
 
