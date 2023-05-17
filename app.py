@@ -41,6 +41,7 @@ def home():
 @app.route("/technische_mechanik/<string:semester>")
 @cache.memoize(timeout=TIMEOUT, unless=bypass_caching)
 def technische_mechanik(semester: str):
+    # TODO: Handle TemplateNotFound error if 'semester' is invalid semester (->Enum?)
     return render_template(f"technische_mechanik/TM_{semester}.html")
 
 
