@@ -4,12 +4,12 @@ let savedTheme = localStorage.getItem("theme")
 
 // Überprüfe den gespeicherten Theme-Status und setze das Theme und den Switch
 // entsptrechend
-if (savedTheme === "dark") {
-    themeSwitch.checked = true
-    htmlTag.setAttribute("data-bs-theme", "dark")
-} else {
+if (savedTheme === "light") {
     themeSwitch.checked = false
     htmlTag.setAttribute("data-bs-theme", "light")
+} else {
+    themeSwitch.checked = true
+    htmlTag.setAttribute("data-bs-theme", "dark")
 }
 
 // Füge den Change-Eventhandler zum ThemeSwitch hinzu
