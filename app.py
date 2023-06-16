@@ -43,9 +43,7 @@ def home():
 def technische_mechanik(semester: str):
     template_name = f"TM_{semester}"
 
-    import utility
-
-    valid_template_names = utility.template_finder("./templates/technische_mechanik/")
+    valid_template_names = {"TM_HS23"}
     if template_name not in valid_template_names:
         abort(404)
 
