@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from dotenv import load_dotenv
 
-from flask import Flask, render_template
+from flask import Flask, abort, render_template
 from flask_caching import Cache
 from werkzeug.exceptions import HTTPException
 
@@ -41,8 +41,13 @@ def home():
 @app.route("/technische_mechanik/<string:semester>")
 @cache.memoize(timeout=TIMEOUT, unless=bypass_caching)
 def technische_mechanik(semester: str):
-    # TODO: Handle TemplateNotFound error if 'semester' is invalid semester (->Enum?)
-    return render_template(f"technische_mechanik/TM_{semester}.html")
+    template_name = f"TM_{semester}"
+
+    valid_template_names = {"TM_HS23"}
+    if template_name not in valid_template_names:
+        abort(404)
+
+    return render_template(f"technische_mechanik/{template_name}.html")
 
 
 if __name__ == "__main__":
