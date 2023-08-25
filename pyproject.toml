@@ -7,14 +7,14 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-Flask = "^2.3.2"
+Flask = "^2.3.3"
 Flask-Caching = "^2.0.2"
 python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
-ruff = "^0.0.282"
-mypy = "^1.4.1"
+ruff = "^0.0.285"
+mypy = "^1.5.1"
 
 [build-system]
 requires = ["poetry-core"]
