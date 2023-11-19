@@ -4,7 +4,7 @@ from pathlib import Path
 
 from worldle import worldle_bp
 
-from flask import abort, render_template
+from flask import abort, render_template, redirect, url_for
 
 FILE_PATH = Path(__file__).resolve().parent
 
@@ -14,8 +14,13 @@ def home():
     return render_template("worldle/home.html")
 
 
+@worldle_bp.route("/capital/")
+def default_capital():
+    DEFAULT_REGION = "worldwide"
+    return redirect(url_for("worldle_bp.capital", region=DEFAULT_REGION))
+
 @worldle_bp.route("/capital/<string:region>")
-def capital(region="worldwide"):
+def capital(region):
     VALID_REGIONS = {
         "africa", "americas", "antarctic", "asia", "europe", "oceania", "worldwide"
     }
