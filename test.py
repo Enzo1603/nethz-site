@@ -1,6 +1,6 @@
 import csv
 
-with open("static/worldle/dist/countries.csv") as f:
+with open("static/worldle/countries.csv") as f:
     reader = csv.DictReader(f)
     
     regions = set()
