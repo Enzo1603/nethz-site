@@ -40,7 +40,7 @@ def home():
     return render_template("main/home.html")
 
 
-@app.route("/technische_mechanik/<string:semester>")
+@app.route("/technische_mechanik/<string:semester>/")
 @cache.memoize(timeout=TIMEOUT, unless=bypass_caching)
 def technische_mechanik(semester: str):
     template_name = f"TM_{semester}"
