@@ -30,10 +30,11 @@ def capital():
         reader = csv.DictReader(f)
         entries = list(reader)
 
-        # TODO: Filter out Antartica since it has no capital
-
         if region != "Worldwide":
             entries = [entry for entry in entries if entry["region"].lower() == region.lower()]
+
+        # Filter entries with no capitals
+        entries = [entry for entry in entries if entry["capital"].strip()]
 
         random_row = random.choice(entries)
 

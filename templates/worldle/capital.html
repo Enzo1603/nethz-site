@@ -108,7 +108,11 @@
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        {{ country_data["capital"] }}
+                        {% if country_data["capital"] | trim %}
+                        {{ country_data["capital"]|trim }}
+                        {% else %}
+                        {{ "There is no capital. Submit an empty text field." }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
