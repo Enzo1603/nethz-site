@@ -118,14 +118,15 @@
 
 
 <script>
-    // TODO: trim user answer
     let userAnswer = document.getElementById("userAnswer")
     userAnswer.focus()
 
     function checkAnswer() {
         let correctAnswer = "{{ country_data['capital'] }}"
 
-        if (userAnswer.value.toLowerCase() === correctAnswer.toLowerCase()) {
+        let userText = userAnswer.value.trim()
+
+        if (userText.toLowerCase() === correctAnswer.toLowerCase()) {
             // Correct answer
             userAnswer.classList.remove('is-invalid')
             userAnswer.classList.add('is-valid')
