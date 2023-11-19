@@ -1,10 +1,12 @@
 import csv
 import random
+from pathlib import Path
 
 from worldle import worldle_bp
 
 from flask import render_template, request
 
+FILE_PATH = Path(__file__).resolve().parent
 
 
 
@@ -23,8 +25,8 @@ def capital():
         region = "Worldwide" # Default region
 
 
-
-    with open("static/worldle/countries.csv") as f:
+    countries_csv_file_path = FILE_PATH.parent / "static" / "worldle" / "countries.csv"
+    with open(countries_csv_file_path) as f:
         reader = csv.DictReader(f)
         entries = list(reader)
 
