@@ -1,0 +1,55 @@
+{% extends "components/_base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<h1 class="mb-4">Spielmodi</h1>
+
+
+<div class="row">
+
+
+    <!-- Physik I FS24 Card -->
+    <div class="col-md-6 col-sm-12 mt-2 mb-4">
+        <div class="card rounded-3 zoom">
+            <a href="{{ url_for('worldle_bp.capital') }}">
+                <img src="{{ url_for('static', filename='images/Bern_3px.jpg') }}" class="card-img rounded-3"
+                    style="filter: brightness(70%);" alt="...">
+                <div class="card-img-overlay text-white text-center">
+                    <div
+                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
+                        <h2 class="card-title fs-2">Capital</h2>
+                        <p class="card-text fs-6 mb-3">Errate die Hauptstadt</p>
+                        <a class="btn btn-light btn-lg-lg btn" href="{{ url_for('worldle_bp.capital') }}">Zum Spiel</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Informatik I FS24 Card -->
+    <div class="col-md-6 col-sm-12 mt-2 mb-4">
+        <div class="card rounded-3 zoom">
+            <a href="#">
+                <img src="{{ url_for('static', filename='images/informatik1_3px.jpg') }}" class="card-img rounded-3"
+                    style="filter: brightness(70%);" alt="...">
+                <div class="card-img-overlay text-white text-center">
+                    <div
+                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
+                        <h2 class="card-title fs-2">Coming soon</h2>
+                        <p class="card-text fs-6 mb-3">nothing to be seen here</p>
+                        <a class="btn btn-light btn-lg-lg btn" href="#">Zum Spiel</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

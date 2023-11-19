@@ -17,6 +17,8 @@ TIMEOUT: int = 60 * 60 * 24 * 365  # 365 days
 app = Flask(__name__)
 cache.init_app(app)
 
+from worldle import worldle_bp as worldle_blueprint
+app.register_blueprint(worldle_blueprint, url_prefix="/worldle")
 
 def bypass_caching():
     return DEBUG
