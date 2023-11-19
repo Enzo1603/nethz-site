@@ -17,7 +17,7 @@
     <!-- Physik I FS24 Card -->
     <div class="col-md-6 col-sm-12 mt-2 mb-4">
         <div class="card rounded-3 zoom">
-            <a href="{{ url_for('worldle_bp.capital', region='worldwide') }}">
+            <a href="{{ url_for('worldle_bp.default_capital') }}">
                 <img src="{{ url_for('static', filename='images/Bern_3px.jpg') }}" class="card-img rounded-3"
                     style="filter: brightness(70%);" alt="...">
                 <div class="card-img-overlay text-white text-center">
@@ -25,8 +25,8 @@
                         style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
                         <h2 class="card-title fs-2">Capital</h2>
                         <p class="card-text fs-6 mb-3">Errate die Hauptstadt</p>
-                        <a class="btn btn-light btn-lg-lg btn"
-                            href="{{ url_for('worldle_bp.capital', region='worldwide') }}">Zum Spiel</a>
+                        <a class="btn btn-light btn-lg-lg btn" href="{{ url_for('worldle_bp.default_capital') }}">Zum
+                            Spiel</a>
                     </div>
                 </div>
             </a>
