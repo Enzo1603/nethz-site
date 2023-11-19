@@ -9,63 +9,27 @@
 
 <form id="regionForm">
     <!-- <label for="regionSelect">Choose a region:</label> -->
-    <select class="form-select" id="regionSelect" name="region" onchange="selectRandomEntry()">
-        <option value="Worldwide">Worldwide</option>
-        <option value="Africa">Africa</option>
-        <option value="Americas">Americas</option>
-        <option value="Antarctic">Antarctic</option>
-        <option value="Asia">Asia</option>
-        <option value="Europe">Europe</option>
-        <option value="Oceania">Oceania</option>
+    <select class="form-select" id="regionSelect" name="regionSelect" onchange="changeRegion()">
+        <option value="worldwide">Worldwide</option>
+        <option value="africa">Africa</option>
+        <option value="americas">Americas</option>
+        <option value="antarctic">Antarctic</option>
+        <option value="asia">Asia</option>
+        <option value="europe">Europe</option>
+        <option value="oceania">Oceania</option>
     </select>
 
     <script>
-        // TODO: We write this script, it is not bulletproof
-        const validRegions = ["Africa", "Americas", "Antarctic", "Asia", "Europe", "Oceania", "Worldwide"]
-        let selectedRegion = localStorage.getItem("selectedRegion")
+        let regionSelect = document.getElementById("regionSelect")
+        regionSelect.value = "{{ region }}"  // Set select tag to current region
 
-        if (!selectedRegion || !validRegions.includes(selectedRegion)) {
-            selectedRegion = "Worldwide"
-            localStorage.setItem("selectedRegion", selectedRegion)  // Default region
-        }
+        function changeRegion() {
+            const selectedRegion = regionSelect.value
 
-        // Überprüfen, ob der Query-Parameter bereits in der URL vorhanden ist
-        let queryParams = new URLSearchParams(window.location.search);
-        let regionParams = queryParams.getAll("region")
-
-        if (regionParams.length > 1 || !validRegions.includes(regionParams[0])) {
-            // Wenn mehr als ein 'region'-Parameter vorhanden ist, behalte nur den ersten
-            queryParams.delete("region")
-
-            if (validRegions.includes(regionParams[0])) {
-                queryParams.append("region", regionParams[0])
-            } else { queryParams.append("region", "Worldwide") }
-
-            // Aktualisiere die URL ohne die zusätzlichen 'region'-Parameter
-            window.history.replaceState({}, document.title, window.location.pathname + '?' + queryParams.toString());
-        }
-
-        if (selectedRegion) {
-            document.getElementById("regionSelect").value = selectedRegion
-
-            if (!queryParams.has('region')) {
-
-                // Wenn nicht vorhanden, füge den Cookie-Wert als Query-Parameter hinzu
-                window.location.href = window.location.href + (window.location.href.includes('?') ? '&' : '?') + "region=" + encodeURIComponent(selectedRegion)
-            }
-        }
-
-        function selectRandomEntry() {
-            // Abrufen der ausgewählten Region
-            let selectedRegion = document.getElementById("regionSelect").value
-
-            // Speichern des ausgewählten Regionswerts im localStorage
-            if (validRegions.includes(selectedRegion)) {
-                localStorage.setItem("selectedRegion", selectedRegion)
-            }
-
-            // Weiterleitung zur Flask-Route mit dem ausgewählten Region-Parameter
-            window.location.href = "?region=" + encodeURIComponent(selectedRegion);
+            let currentURL = window.location.href
+            let newURL = currentURL.replace("{{ region }}", selectedRegion)
+            // let newURL = currentURL.replace(/\/capital\/[^/]+$/, "/capital/" + selectedRegion)
+            window.location.href = newURL
         }
     </script>
 </form>
