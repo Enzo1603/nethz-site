@@ -90,7 +90,7 @@
     userAnswer.focus()
 
     function checkAnswer() {
-        let correctAnswer = "{{ country_data['capital'] }}"
+        const correctAnswer = "{{ country_data['capital'] | safe }}".trim()
 
         let userText = userAnswer.value.trim()
 
