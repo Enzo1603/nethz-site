@@ -19,10 +19,17 @@ def default_capital():
     DEFAULT_REGION = "worldwide"
     return redirect(url_for("worldle_bp.capital", region=DEFAULT_REGION))
 
+
 @worldle_bp.route("/capital/<string:region>/")
 def capital(region):
     VALID_REGIONS = {
-        "africa", "americas", "antarctic", "asia", "europe", "oceania", "worldwide"
+        "africa",
+        "americas",
+        "antarctic",
+        "asia",
+        "europe",
+        "oceania",
+        "worldwide",
     }
 
     if region not in VALID_REGIONS:
