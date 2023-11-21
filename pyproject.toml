@@ -12,9 +12,7 @@ Flask-Caching = "^2.1.0"
 python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.9.1"
 ruff = "^0.0.292"
-mypy = "^1.6.0"
 
 [build-system]
 requires = ["poetry-core"]
