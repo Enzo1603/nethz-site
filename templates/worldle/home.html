@@ -1,4 +1,5 @@
 {% extends "components/_base.html" %}
+{% import "macros/cards.html" as cards %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
@@ -7,50 +8,21 @@
 
 {% block content %}
 
-
 <h1 class="mb-4">Spielmodi</h1>
 
+{{ cards.row_cards([
 
-<div class="row">
+{
+"title": "Capitals",
+"description": "Errate die Hauptstadt",
+"button_text": "Zum Spiel",
+"image_path": url_for('static', filename='images/Bern_3px.jpg'),
+"link": url_for('worldle_bp.default_capitals'),
+"disabled": False,
+},
 
+"Coming soon",
 
-    <!-- Capitals Card -->
-    <div class="col-md-6 col-sm-12 mt-2 mb-4">
-        <div class="card rounded-3 zoom">
-            <a href="{{ url_for('worldle_bp.default_capitals') }}">
-                <img src="{{ url_for('static', filename='images/Bern_3px.jpg') }}" class="card-img rounded-3"
-                    style="filter: brightness(70%);" alt="...">
-                <div class="card-img-overlay text-white text-center">
-                    <div
-                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
-                        <h2 class="card-title fs-2">Capitals</h2>
-                        <p class="card-text fs-6 mb-3">Errate die Hauptstadt</p>
-                        <a class="btn btn-light btn-lg" href="{{ url_for('worldle_bp.default_capitals') }}">Zum
-                            Spiel</a>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <!-- Coming Soon Card -->
-    <div class="col-md-6 col-sm-12 mt-2 mb-4">
-        <div class="card rounded-3 zoom">
-            <a href="#">
-                <img src="{{ url_for('static', filename='images/informatik1_3px.jpg') }}" class="card-img rounded-3"
-                    style="filter: brightness(70%);" alt="...">
-                <div class="card-img-overlay text-white text-center">
-                    <div
-                        style="margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%); width: 90%;">
-                        <h2 class="card-title fs-2">Coming soon (or never)</h2>
-                        <p class="card-text fs-6 mb-3">nothing to be seen here</p>
-                        <a class="btn btn-light btn-lg disabled" href="#">Zum Spiel</a>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-</div>
+]) }}
 
 {% endblock content %}
