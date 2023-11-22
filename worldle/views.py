@@ -14,14 +14,14 @@ def home():
     return render_template("worldle/home.html")
 
 
-@worldle_bp.route("/capital/")
-def default_capital():
+@worldle_bp.route("/capitals/")
+def default_capitals():
     DEFAULT_REGION = "worldwide"
-    return redirect(url_for("worldle_bp.capital", region=DEFAULT_REGION))
+    return redirect(url_for("worldle_bp.capitals", region=DEFAULT_REGION))
 
 
-@worldle_bp.route("/capital/<string:region>/")
-def capital(region):
+@worldle_bp.route("/capitals/<string:region>/")
+def capitals(region):
     VALID_REGIONS = {
         "africa",
         "americas",
