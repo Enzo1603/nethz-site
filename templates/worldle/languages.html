@@ -1,0 +1,146 @@
+{% extends "components/_base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<!-- <label for="regionSelect">Choose a region:</label> -->
+<select class="form-select" id="regionSelect" name="regionSelect" onchange="changeRegion()">
+    <option value="worldwide">Worldwide</option>
+    <option value="africa">Africa</option>
+    <option value="americas">Americas</option>
+    <option value="antarctic">Antarctic</option>
+    <option value="asia">Asia</option>
+    <option value="europe">Europe</option>
+    <option value="oceania">Oceania</option>
+</select>
+
+<script>
+    let regionSelect = document.getElementById("regionSelect")
+    regionSelect.value = "{{ region }}"  // Set select tag to current region
+
+    function changeRegion() {
+        const selectedRegion = regionSelect.value
+
+        let currentURL = window.location.href
+        let newURL = currentURL.replace("{{ region }}", selectedRegion)
+        // let newURL = currentURL.replace(/\/capital\/[^/]+$/, "/capital/" + selectedRegion)
+        window.location.href = newURL
+    }
+</script>
+
+<br>
+<br>
+
+<h1 class="mb-4">Languages</h1>
+
+<div class="col-8 mx-auto">
+    <div class="text-center">
+
+        <h3>{{ country_data["name.common"] }}</h3>
+
+        <br>
+
+        <img src="{{ url_for('static', filename='worldle/data/' + country_data['cca3']|lower + '.svg') }}"
+            class="img-fluid zoom" style="max-width: 45%;">
+
+        <br>
+        <br>
+        <br>
+
+        <input class="form-control" type="text" id="userAnswer" placeholder="Enter the language(s)">
+        <br>
+        <button class="btn btn-primary" onclick="checkAnswer()">Check Answer</button>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Show me the solution
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {% if country_data["languages"] | trim %}
+                        {{ country_data["languages"] | replace(",", ", ") | trim }}
+                        {% else %}
+                        {{ "There is no language. Submit an empty text field." }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let userAnswer = document.getElementById("userAnswer")
+    userAnswer.focus()
+
+    function checkAnswer() {
+        const correctAnswer = "{{ country_data['languages'] | safe }}".trim().toLowerCase()
+
+        const userText = userAnswer.value.trim().toLowerCase()
+
+        // Teile die vom Benutzer eingegebenen Sprachen auf und entferne Leerzeichen
+        const userLanguages = userText.split(',').map(lang => lang.trim()).sort();
+
+        // Teile die korrekten Sprachen auf und entferne Leerzeichen
+        const correctLanguages = correctAnswer.split(',').map(lang => lang.trim()).sort();
+
+        // Überprüfe, ob die eingegebenen Sprachen korrekt sind
+        const isCorrect = arraysEqual(userLanguages, correctLanguages);
+
+        // Überprüfe, ob einige der korrekten Sprachen eingegeben wurden
+        const isPartialCorrect = correctLanguages.some(lang => userLanguages.includes(lang));
+
+
+        if (isCorrect) {
+            // Correct answer
+            userAnswer.classList.remove('is-invalid')
+            userAnswer.classList.remove('is-partial-correct')
+
+            userAnswer.classList.add('is-valid')
+
+            setTimeout(function () {
+                location.reload()
+                document.getElementById("userAnswer").value = ""
+            }, 1000)
+
+        } else if (isPartialCorrect) {
+            // Einige der korrekten Sprachen wurden eingegeben
+            userAnswer.classList.remove('is-invalid')
+            userAnswer.classList.add('is-partial-correct')
+        } else {
+            // Wrong answer
+            userAnswer.classList.remove('is-invalid')
+            userAnswer.classList.remove('is-partial-correct')
+
+            userAnswer.classList.add('is-invalid')
+        }
+    }
+
+    // Überprüfe, ob zwei Arrays gleich sind
+    function arraysEqual(arr1, arr2) {
+        return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+    }
+
+    // Füge einen Eventlistener hinzu, um die Enter-Taste abzufangen
+    document.getElementById('userAnswer').addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+
+</script>
+
+{% endblock content %}

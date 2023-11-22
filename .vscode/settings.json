@@ -3,6 +3,7 @@
         "dotenv",
         "endmacro",
         "errorhandler",
+        "Eventlistener",
         "informatik",
         "worldle"
     ]

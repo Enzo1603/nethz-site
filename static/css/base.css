@@ -21,3 +21,15 @@ a {
 nav {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
+
+.is-partial-correct {
+    border-color: #ffc107;
+    /* Setze die gewünschte Orange/Gelb-Farbe */
+}
+
+.is-partial-correct:focus {
+    border-color: #ffc107;
+    /* Setze die gewünschte Orange/Gelb-Farbe */
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    /* Optional: Füge einen Schatten hinzu */
+}
