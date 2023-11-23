@@ -26,6 +26,10 @@ with open(COUNTRIES_CSV_FILE_PATH) as f:
     CSV_ENTRIES = list(READER)
 
 
+def get_csv_entries():
+    return random.sample(CSV_ENTRIES, len(CSV_ENTRIES))
+
+
 @worldle_bp.route("/")
 def home():
     return render_template("worldle/home.html")
@@ -41,7 +45,7 @@ def capitals(region):
     if region not in VALID_REGIONS:
         abort(404)
 
-    entries = deepcopy(CSV_ENTRIES)
+    entries = deepcopy(get_csv_entries())
 
     if region != DEFAULT_REGION:
         entries = [
@@ -70,7 +74,7 @@ def languages(region):
     if region not in VALID_REGIONS:
         abort(404)
 
-    entries = deepcopy(CSV_ENTRIES)
+    entries = deepcopy(get_csv_entries())
 
     if region != DEFAULT_REGION:
         entries = [
