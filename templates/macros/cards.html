@@ -1,5 +1,6 @@
 {% macro card(title, description, button_text, image_path, link="#",disabled=False) %}
 
+<!-- {{ title | capitalize }} Card -->
 <div class="col-md-6 col-sm-12 mt-2 mb-4">
     <div class="card rounded-3 zoom">
         <a href="{{ link }}">
@@ -21,8 +22,10 @@
 
 
 {% macro coming_soon_card() %}
-{{ card("Coming soon (or never)", "nothing to be seen here", "Go away", url_for('static',
-filename='images/informatik1_3px.jpg'), "#", True) }}
+
+{{ card("Coming soon (or never)", "nothing to be seen here", "Go away",
+url_for('static', filename='images/informatik1_3px.jpg'), "#", True) }}
+
 {% endmacro %}
 
 
@@ -55,13 +58,14 @@ filename='images/informatik1_3px.jpg'), "#", True) }}
 #}
 
 {% macro row_cards(cards_data) %}
+
+<!-- Cards Row -->
 <div class="row">
 
     {% for card_data in cards_data %}
 
     {% if card_data != 'Coming soon' %}
 
-    <!-- {{ card_data.title | capitalize }} -->
     {{ card(card_data.title, card_data.description, card_data.button_text, card_data.image_path, card_data.link,
     card_data.disabled)}}
 
@@ -73,4 +77,5 @@ filename='images/informatik1_3px.jpg'), "#", True) }}
 
     {% endfor %}
 </div>
+
 {% endmacro %}
