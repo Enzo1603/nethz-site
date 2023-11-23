@@ -62,6 +62,7 @@
 
 
 <script>
+    // TODO: Refactor code to extract similar functionality between capitals and languages
     let userAnswer = document.getElementById("userAnswer")
     userAnswer.focus()
 
@@ -70,17 +71,25 @@
 
         const userText = userAnswer.value.trim().toLowerCase()
 
-        // Teile die vom Benutzer eingegebenen Sprachen auf und entferne Leerzeichen
-        const userLanguages = userText.split(',').map(lang => lang.trim()).sort();
+        /* Teile die vom Benutzer eingegebenen Sprachen auf, entferne Leerzeichen und
+        filtere leere Strings heraus */
+        const userLanguages = userText.split(',')
+            .map(lang => lang.trim())
+            .filter(lang => lang !== "")
+            .sort()
 
         // Teile die korrekten Sprachen auf und entferne Leerzeichen
-        const correctLanguages = correctAnswer.split(',').map(lang => lang.trim()).sort();
+        const correctLanguages = correctAnswer.split(',')
+            .map(lang => lang.trim())
+            .filter(lang => lang !== "")
+            .sort()
 
         // Überprüfe, ob die eingegebenen Sprachen korrekt sind
-        const isCorrect = arraysEqual(userLanguages, correctLanguages);
+        const isCorrect = arraysEqual(userLanguages, correctLanguages)
 
         // Überprüfe, ob einige der korrekten Sprachen eingegeben wurden
-        const isPartialCorrect = correctLanguages.some(lang => userLanguages.includes(lang));
+        const isPartialCorrect = correctLanguages.some(lang => userLanguages.includes(lang))
+        const hasWrongAnswer = userLanguages.some(lang => !correctLanguages.includes(lang))
 
 
         if (isCorrect) {
@@ -95,7 +104,7 @@
                 document.getElementById("userAnswer").value = ""
             }, 1000)
 
-        } else if (isPartialCorrect) {
+        } else if (isPartialCorrect && !hasWrongAnswer) {
             // Einige der korrekten Sprachen wurden eingegeben
             userAnswer.classList.remove('is-invalid')
             userAnswer.classList.add('is-partial-correct')

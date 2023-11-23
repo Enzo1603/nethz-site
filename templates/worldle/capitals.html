@@ -49,7 +49,7 @@
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         {% if country_data["capital"] | trim %}
-                        {{ country_data["capital"]|trim }}
+                        {{ country_data["capital"] | replace(",", ", ") | trim }}
                         {% else %}
                         {{ "There is no capital. Submit an empty text field." }}
                         {% endif %}
@@ -62,17 +62,41 @@
 
 
 <script>
+    // TODO: Refactor code to extract similar functionality between capitals and languages
     let userAnswer = document.getElementById("userAnswer")
     userAnswer.focus()
 
     function checkAnswer() {
-        const correctAnswer = "{{ country_data['capital'] | safe }}".trim()
+        const correctAnswer = "{{ country_data['capital'] | safe }}".trim().toLowerCase()
 
-        let userText = userAnswer.value.trim()
+        const userText = userAnswer.value.trim().toLowerCase()
 
-        if (userText.toLowerCase() === correctAnswer.toLowerCase()) {
+        /* Teile die vom Benutzer eingegebenen Hauptstädte auf, entferne Leerzeichen und
+        filtere leere Strings heraus */
+        const userCapitals = userText.split(",")
+            .map(capital => capital.trim())
+            .filter(capital => capital !== "")
+            .sort()
+
+        // Teile die korrekten Hauptstädte auf und entferne Leerzeichen
+        const correctCapitals = correctAnswer.split(",")
+            .map(capital => capital.trim())
+            .filter(capital => capital !== "")
+            .sort()
+
+        // Überprüfe, ob die eingegebenen Hauptstädte korrekt sind
+        const isCorrect = arraysEqual(userCapitals, correctCapitals);
+
+        // Überprüfe, ob einige der korrekten Hauptstädte eingegeben wurden
+        const isPartialCorrect = correctCapitals.some(capital => userCapitals.includes(capital))
+        const hasWrongAnswer = userCapitals.some(capital => !correctCapitals.includes(capital))
+
+
+        if (isCorrect) {
             // Correct answer
             userAnswer.classList.remove('is-invalid')
+            userAnswer.classList.remove("is-partial-correct")
+
             userAnswer.classList.add('is-valid')
 
             setTimeout(function () {
@@ -80,10 +104,22 @@
                 document.getElementById("userAnswer").value = ""
             }, 1000)
 
+        } else if (isPartialCorrect && !hasWrongAnswer) {
+            // Einige der korrekten Hauptstädte wurden eingeben
+            userAnswer.classList.remove("is-invalid")
+            userAnswer.classList.add("is-partial-correct")
         } else {
             // Wrong answer
+            userAnswer.classList.remove('is-valid')
+            userAnswer.classList.remove('is-partial-correct')
+
             userAnswer.classList.add('is-invalid')
         }
+    }
+
+    // Überprüfe, ob zwei Arrays gleich sind
+    function arraysEqual(arr1, arr2) {
+        return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
     }
 
     // Füge einen Eventlistener hinzu, um die Enter-Taste abzufangen
