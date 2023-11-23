@@ -27,7 +27,11 @@ with open(COUNTRIES_CSV_FILE_PATH) as f:
 
 
 def get_csv_entries():
+    """Randomize the csv dataset before copying it for the individual views"""
     return random.sample(CSV_ENTRIES, len(CSV_ENTRIES))
+
+
+####### VIEWS #######
 
 
 @worldle_bp.route("/")
