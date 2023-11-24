@@ -9,7 +9,6 @@ readme = "README.md"
 python = "^3.10"
 Flask = "^3.0.0"
 Flask-Caching = "^2.1.0"
-python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.6"
