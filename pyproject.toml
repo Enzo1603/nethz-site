@@ -6,7 +6,7 @@ authors = ["Enzo Baraldi"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 Flask = "^3.0.0"
 Flask-Caching = "^2.1.0"
 python-dotenv = "^1.0.0"
