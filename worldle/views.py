@@ -21,7 +21,7 @@ VALID_REGIONS = {
     "worldwide",
 }
 
-with open(COUNTRIES_CSV_FILE_PATH) as f:
+with open(COUNTRIES_CSV_FILE_PATH, "r", encoding="utf-8") as f:
     READER = csv.DictReader(f)
     CSV_ENTRIES = list(READER)
 
