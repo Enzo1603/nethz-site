@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fs-5 fixed-top bg-body-tertiary mb-5" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand fs-4" href="{{ url_for('home') }}">Enzo Baraldi</a>
+        <a class="navbar-brand fs-4" href="{{ url_for('main.home') }}">Enzo Baraldi</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,17 +17,17 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item ms-3">
-                    <a class="nav-link" aria-current="page" href="{{ url_for('home') }}">Home</a>
+                    <a class="nav-link" aria-current="page" href="{{ url_for('main.home') }}">Home</a>
                 </li>
 
                 <li class="nav-item ms-3">
-                    <a class="nav-link" href="{{ url_for('technische_mechanik', semester='HS23') }}">
+                    <a class="nav-link" href="{{ url_for('main.technische_mechanik', semester='HS23') }}">
                         Technische Mechanik
                     </a>
                 </li>
 
                 <li class="nav-item ms-3">
-                    <a class="nav-link" href="{{ url_for('worldle_bp.home') }}">
+                    <a class="nav-link" href="{{ url_for('worldle.home') }}">
                         Worldle
                     </a>
                 </li>

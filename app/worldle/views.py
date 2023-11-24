@@ -3,12 +3,16 @@ import random
 from pathlib import Path
 from copy import deepcopy
 
-from worldle import worldle_bp
+from . import worldle
+from .. import cache
+
 
 from flask import abort, render_template, redirect, url_for
 
 FILE_PATH = Path(__file__).resolve().parent
-COUNTRIES_CSV_FILE_PATH = FILE_PATH.parent / "static" / "worldle" / "countries.csv"
+COUNTRIES_CSV_FILE_PATH = (
+    FILE_PATH.parent.parent / "static" / "worldle" / "countries.csv"
+)
 
 DEFAULT_REGION = "worldwide"
 VALID_REGIONS = {
@@ -34,17 +38,18 @@ def get_csv_entries():
 ####### VIEWS #######
 
 
-@worldle_bp.route("/")
+@worldle.route("/")
+@cache.cached()
 def home():
     return render_template("worldle/home.html")
 
 
-@worldle_bp.route("/capitals/")
+@worldle.route("/capitals/")
 def default_capitals():
-    return redirect(url_for("worldle_bp.capitals", region=DEFAULT_REGION))
+    return redirect(url_for("worldle.capitals", region=DEFAULT_REGION))
 
 
-@worldle_bp.route("/capitals/<string:region>/")
+@worldle.route("/capitals/<string:region>/")
 def capitals(region):
     if region not in VALID_REGIONS:
         abort(404)
@@ -68,12 +73,12 @@ def capitals(region):
     )
 
 
-@worldle_bp.route("/languages/")
+@worldle.route("/languages/")
 def default_languages():
-    return redirect(url_for("worldle_bp.languages", region=DEFAULT_REGION))
+    return redirect(url_for("worldle.languages", region=DEFAULT_REGION))
 
 
-@worldle_bp.route("/languages/<string:region>")
+@worldle.route("/languages/<string:region>")
 def languages(region):
     if region not in VALID_REGIONS:
         abort(404)
