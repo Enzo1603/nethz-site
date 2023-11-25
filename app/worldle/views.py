@@ -1,18 +1,13 @@
-import csv
 import random
-from pathlib import Path
 from copy import deepcopy
 
 from . import worldle
 from .. import cache
+from .utils import get_csv_entries
 
 
 from flask import abort, render_template, redirect, url_for
 
-FILE_PATH = Path(__file__).resolve().parent
-COUNTRIES_CSV_FILE_PATH = (
-    FILE_PATH.parent.parent / "static" / "worldle" / "countries.csv"
-)
 
 DEFAULT_REGION = "worldwide"
 VALID_REGIONS = {
@@ -24,15 +19,6 @@ VALID_REGIONS = {
     "oceania",
     "worldwide",
 }
-
-with open(COUNTRIES_CSV_FILE_PATH, "r", encoding="utf-8") as f:
-    READER = csv.DictReader(f)
-    CSV_ENTRIES = list(READER)
-
-
-def get_csv_entries():
-    """Randomize the csv dataset before copying it for the individual views"""
-    return random.sample(CSV_ENTRIES, len(CSV_ENTRIES))
 
 
 ####### VIEWS #######

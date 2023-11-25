@@ -7,14 +7,20 @@ from werkzeug.exceptions import HTTPException
 
 
 FILE_PATH = Path(__file__).resolve().parent
-CONFIG_FILE_PATH = FILE_PATH.parent / "config.py"
+PROJECT_ROOT_PATH = FILE_PATH.parent
+
 
 cache = Cache(config={"CACHE_TYPE": "SimpleCache"})
 
 
-def create_app(config_filename=CONFIG_FILE_PATH):
-    app = Flask(__name__, instance_relative_config=True)
+def create_app(config_filename=PROJECT_ROOT_PATH / "config.py"):
+    app = Flask(__name__)
     app.config.from_pyfile(config_filename)
+
+    try:
+        app.config.from_pyfile(PROJECT_ROOT_PATH / "instance" / "config.py")
+    except FileNotFoundError:
+        pass
 
     @app.context_processor
     def inject_utcnow():
