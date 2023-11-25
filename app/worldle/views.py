@@ -6,7 +6,7 @@ from .. import cache
 from .utils import get_csv_entries
 
 
-from flask import abort, render_template, redirect, url_for
+from flask import abort, render_template, redirect, url_for, jsonify
 
 
 DEFAULT_REGION = "worldwide"
@@ -19,9 +19,6 @@ VALID_REGIONS = {
     "oceania",
     "worldwide",
 }
-
-
-####### VIEWS #######
 
 
 @worldle.route("/")
@@ -86,3 +83,33 @@ def languages(region):
         region=region,
         country_data=random_row,
     )
+
+
+@worldle.route("/areas/")
+def areas():
+    """entries = deepcopy(get_csv_entries())
+
+    # Filter entries with no area
+    entries = [entry for entry in entries if entry["area"].strip()]
+
+    country1 = random.choice(entries)
+    entries.remove(country1)
+    country2 = random.choice(entries)"""
+
+    return render_template("worldle/areas.html")
+
+
+@worldle.route("/areas/get-country", methods=["GET"])
+def get_country():
+    entries = deepcopy(get_csv_entries())
+
+    # Filter entries with no area or negative area
+    entries = [
+        entry
+        for entry in entries
+        if entry["area"].strip() or float(entry["area"].strip()) < 0
+    ]
+
+    country = random.choice(entries)
+
+    return jsonify({"country": country})
