@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
 
 <style>
+    /* For Correct/False overlay */
     .overlay {
         position: fixed;
         top: 0;
@@ -93,6 +94,8 @@
 </div>
 
 <script>
+    // TODO: Display score and update it
+    // TODO: Keep track of highscore via Cookie, display it and update it
     let score = 0
 
     let country1 = {}
@@ -145,6 +148,7 @@
     }
 
     function updateDisplay() {
+        // TODO: Fetch first the new country and then insert the insert the new countries
         // Alte Länder durch neue ersetzen
         country1 = country2
 
@@ -190,6 +194,7 @@
             .then(data => data)
     }
 
+    // TODO: Fetch first both countries and then insert them (for more synchronous appearance)
     // Lade zu Beginn die ersten Länder
     getNewCountry().then(data => {
         country1 = data.country
