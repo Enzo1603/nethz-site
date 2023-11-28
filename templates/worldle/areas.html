@@ -46,6 +46,9 @@
 
 <h1 class="mb-4">Areas</h1>
 
+<!-- TODO: Display it right aligned next to Areas header -->
+<p>Highscore: <span id="high_score"></span></p>
+
 <div class="col-10 mx-auto">
     <div class="row">
         <div class="col-6 text-center">
@@ -85,6 +88,9 @@
 
         <button id="lower-button" type="button" class="btn btn-outline-danger mx-5">Lower <i
                 class="bi bi-chevron-double-down ms-1"></i></button>
+
+        <span>score: <span id="score"></span></span>
+
         <button id="higher-button" type="button" class="btn btn-outline-success mx-5">Higher <i
                 class="bi bi-chevron-double-up ms-1"></i></button>
 
@@ -97,6 +103,10 @@
     // TODO: Display score and update it
     // TODO: Keep track of highscore via Cookie, display it and update it
     let score = 0
+    let high_score = localStorage.getItem("areas_highscore")
+    if (high_score === null) {
+        high_score = 0
+    }
 
     let country1 = {}
     let country2 = {}
@@ -107,6 +117,8 @@
     const image1 = document.getElementById("image1");
     const image2 = document.getElementById("image2");
     const country1_area = document.getElementById("country1-area");
+    const score_span = document.getElementById("score")
+    const high_score_span = document.getElementById("high_score")
 
 
     const lowerButton = document.getElementById("lower-button")
@@ -140,10 +152,20 @@
         if (isCorrect) {
             ++score
             showOverlay("correct-overlay")
+
+
         } else {
             showOverlay("incorrect-overlay")
             // Hier könntest du weitere Aktionen implementieren, wie das Zurücksetzen des Spiels.
             score = 0
+        }
+        // Update Score
+        score_span.innerText = score
+        // Update Highscore
+        if (high_score < score) {
+            high_score = score
+            localStorage.setItem("areas_highscore", high_score)
+            high_score_span.innerText = high_score
         }
     }
 
@@ -157,7 +179,7 @@
 
             // Aktualisiere die Anzeige mit den Daten des neuen Landes
             country1_name.innerText = country1["name.common"]
-            country2_name.innerHTML = country2["name.common"]
+            country2_name.innerText = country2["name.common"]
 
             let image1_url = "/static/worldle/data/" + country1["cca3"].toLowerCase() + ".svg"
             let image2_url = "/static/worldle/data/" + country2["cca3"].toLowerCase() + ".svg"
@@ -197,6 +219,10 @@
     // TODO: Fetch first both countries and then insert them (for more synchronous appearance)
     // Lade zu Beginn die ersten Länder
     getNewCountry().then(data => {
+        score_span.innerText = score
+        console.log(high_score)
+        high_score_span.innerText = high_score
+
         country1 = data.country
 
         // Aktualisiere die Anzeige
